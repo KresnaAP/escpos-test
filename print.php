@@ -2,27 +2,24 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use Mike42\Escpos\PrintConnectors\CupsPrintConnector;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
-use Mike42\Escpos\EscposImage;
 
 try {
-    // Membuat koneksi ke printer menggunakan CUPS
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        $connector = new WindowsPrintConnector("Brother_QL_800");
+    } else {
+        $connector = new CupsPrintConnector("Brother_QL_800");
+    }
+
     $connector = new CupsPrintConnector("EPSON_TM_T82_S_C");
 
-    // Membuat objek printer
     $printer = new Printer($connector);
     $printer->initialize();
-    // Membuat objek gambar dari file di direktori public
-    // $img = EscposImage::load('logo.png', false);
 
-    // Mengirim data gambar ke printer
-    // $printer->bitImage($img);
-
-    // Teks 1 - rata kanan
     $printer->setJustification(Printer::JUSTIFY_RIGHT);
     $printer->text("Jl.Cendana 7A HP.085332203122\n");
 
-    // Teks 2 - border dan rata tengah
     $printer->setJustification(Printer::JUSTIFY_CENTER);
     $printer->text("Menyediakan Kebutuhan Rumah Tangga, Alat\nBangunan, Power Tool, Alat Listrik, Sanitary\n");
 
@@ -54,9 +51,8 @@ try {
 
     // Memberikan perintah untuk memotong kertas
     $printer->cut();
-    
+
     // Membuka koneksi ke printer
-    
     $printer->close();
 
     return "Cetak berhasil";
