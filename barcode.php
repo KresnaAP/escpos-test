@@ -1,9 +1,15 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 use Mike42\Escpos\Printer;
-use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\PrintConnectors\CupsPrintConnector;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
-$connector = new FilePrintConnector("php://stdout");
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+    $connector = new WindowsPrintConnector("Brother_QL_800");
+} else {
+    $connector = new CupsPrintConnector("Brother_QL_800");
+}
+
 $printer = new Printer($connector);
 
 /* Height and width */

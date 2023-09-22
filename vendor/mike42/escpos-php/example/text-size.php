@@ -8,8 +8,11 @@
 require __DIR__ . '/../vendor/autoload.php';
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\PrintConnectors\CupsPrintConnector;
 
-$connector = new FilePrintConnector("php://stdout");
+$connector = new CupsPrintConnector("EPSON_TM_T82_S_C");
+
+// Membuat objek printer
 $printer = new Printer($connector);
 
 /* Initialize */

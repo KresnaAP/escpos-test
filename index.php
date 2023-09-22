@@ -25,7 +25,9 @@
 </head>
 
 <body>
-    <a href="print.php">Print</a>
+    <!-- <a href="vendor/mike42/escpos-php/example/text-size.php">Print</a> -->
+    <a href="barcode.php">Print</a>
+    <!-- <a href="print.php">Print</a> -->
 </body>
 
 </html>
